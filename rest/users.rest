@@ -33,6 +33,6 @@ POST http://localhost:4000/api/users/logout
 Content-Type: application/json
 
 {
-  "username": "123",
-  "password": "123"
+  "username": "ada",
+  "password": "Hello"
 }
