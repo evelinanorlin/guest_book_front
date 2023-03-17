@@ -2,7 +2,6 @@ require('dotenv').config()
 var express = require('express');
 var cors = require('cors');
 var app = express();
-const PORT = 4000;
 
 
 var BlogsRoute = require('./routes/blogs-route');
@@ -27,8 +26,7 @@ async function init() {
   } catch(error){
     console.error(error)
   }
-  app.listen(PORT, () => console.log(`server is up and running on port: ${PORT}`))
+  app.listen(4000, () => console.log(`server is up and running`))
 }
 
 init()
-
