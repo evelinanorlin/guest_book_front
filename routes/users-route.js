@@ -39,6 +39,8 @@ router.post('/login', async (req,res) => {
     let decrypted = CryptoJS.AES.decrypt(foundUser.password, process.env.SALT_KEY).toString(CryptoJS.enc.Utf8);
     if(decrypted === password){
       res.send({message: "Logged in"})
+      foundUser.loggedIn = true;
+      foundUser.save()
       return
     } else{
       res.send({message: "Wrong password"})
@@ -47,6 +49,26 @@ router.post('/login', async (req,res) => {
   } else{
     res.send({message: "User not found"})
   }
+})
+
+router.post('/logout', async (req,res) => {
+console.log(req.body);
+let username = req.body.username;
+
+let currentUsers = await UserModel.find()
+
+const foundUser = currentUsers.find((u) => u.username === username);
+
+if(foundUser){
+  foundUser.loggedIn = false;
+  foundUser.save()
+  console.log(foundUser)
+  res.send({message: "logged out"})
+  return
+} else{
+  res.send({message: "failed to log out"})
+}
+
 })
 
 module.exports = router;
